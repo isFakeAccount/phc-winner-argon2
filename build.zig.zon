@@ -1,0 +1,19 @@
+.{
+    .name = .phc_winner_argon2,
+    .version = "1.0.0",
+    .minimum_zig_version = "0.15.1",
+    .dependencies = .{
+        .libargon2 = .{
+            .url = "git+https://github.com/P-H-C/phc-winner-argon2#20190702",
+            .hash = "N-V-__8AAL6jPACZz_uzHrjVutqE0BdxVUrjCZ9m0sk0jK3p",
+            .version = "20190702",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "LICENSE.md",
+        "README.md",
+    },
+    .fingerprint = 0xc150284905cef680,
+}
