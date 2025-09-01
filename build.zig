@@ -1,10 +1,11 @@
 const std = @import("std");
+const buildZon = @import("build.zig.zon");
 
 pub fn build(b: *std.Build) !void {
     const upstream = b.dependency("libargon2", .{});
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
-    const version: std.SemanticVersion = .{ .major = 1, .minor = 0, .patch = 0 };
+    const version: std.SemanticVersion = try std.SemanticVersion.parse(buildZon.version);
 
     // Custom Options
     const no_threads = b.option(bool, "NO_THREADS", "Build without threading enabled.") orelse false;
@@ -43,7 +44,11 @@ pub fn build(b: *std.Build) !void {
     }
 
     // Build command line utility
-    const exe = b.addExecutable(.{ .name = "argon2", .root_module = argon2Module });
+    const exe = b.addExecutable(.{
+        .name = "argon2",
+        .root_module = argon2Module,
+        .version = version,
+    });
     exe.addCSourceFile(.{ .file = upstream.path("src/run.c") });
     b.installArtifact(exe);
 
